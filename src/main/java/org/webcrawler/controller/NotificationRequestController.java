@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.webcrawler.constant.NotificationState;
 import org.webcrawler.model.NotificationRequest;
 import org.webcrawler.model.User;
 import org.webcrawler.repository.NotificationRequestRepository;
@@ -53,7 +54,10 @@ public class NotificationRequestController {
         }
 
         NotificationRequest nr = new NotificationRequest();
+        nr.setUrl(notificationRequest.getUrl());
         nr.setCssSelector(notificationRequest.getCssSelector());
+        nr.setContent(notificationRequest.getContent());
+        nr.setStatus(NotificationState.ACTIVE.name());
         nr.setUserId(userId);
         notificationRequestRepository.save(nr);
 

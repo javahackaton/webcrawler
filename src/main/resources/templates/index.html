@@ -7,31 +7,29 @@
 <body>
 
     <div th:if="*{created}">
-        <div>Notification request was created!</div>
+        <h3>Notification request was created!</h3>
 
-        Email: <span th:utext="*{user.email}" /> <br />
-        Css Selector: <span th:utext="*{notificationRequest.cssSelector}" /> <br />
-
+        <strong>Email:</strong> <span th:utext="*{user.email}" /> <br />
+        <strong>Url:</strong> <span th:utext="*{notificationRequest.url}" /> <br />
+        <strong>Css Selector:</strong> <span th:utext="*{notificationRequest.cssSelector}" /> <br />
+        <strong>Content:</strong> <span th:utext="*{notificationRequest.content}" /> <br />
 
         <br />
         <a th:href="@{/notification}">Create a new one</a>
     </div>
 
     <div th:unless="*{created}">
-        Please enter your notification request test 5
+        Please enter your notification request:
         <br />
 
         <form action="#" th:action="@{/notification}" method="post">
             <p>Email: <input type="text" th:field="*{user.email}" name="user.email" /></p>
+            <p>Url: <input type="text" th:field="*{notificationRequest.url}" name="notificationRequest.url" /></p>
             <p>Css Selector: <input type="text" th:field="*{notificationRequest.cssSelector}" name="notificationRequest.cssSelector" /></p>
+            <p>Content: <input type="text" th:field="*{notificationRequest.content}" name="notificationRequest.content" /></p>
+
             <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
         </form>
-
-        <br />
-        URL: <input type="text" name="url" />
-
-        <br />
-        <p th:text="'Hello, ' + ${name} + '!'" />
     </div>
 
 </body>
