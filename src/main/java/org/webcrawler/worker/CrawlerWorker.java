@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.webcrawler.constant.NotificationState;
 import org.webcrawler.model.NotificationRequest;
 import org.webcrawler.parser.HttpCrawler;
 import org.webcrawler.repository.NotificationRequestRepository;
@@ -28,11 +29,11 @@ public class CrawlerWorker {
     public void crawlWebsites() throws IOException {
         log.info("Web sites will be crawled");
 
-        List<NotificationRequest> list = notificationRequestRepository.findByStatus("active");
+        List<NotificationRequest> list = notificationRequestRepository.findByStatus(NotificationState.ACTIVE.name());
         for (NotificationRequest request : list) {
             boolean found = crawlUrl(request);
             if(found) {
-                request.setStatus("found");
+                request.setStatus(NotificationState.FOUND.name());
                 notificationRequestRepository.save(request);
             }
         }
