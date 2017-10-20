@@ -10,6 +10,7 @@ public class NotificationRequest {
 
 //- id
 //- userId
+//- url
 //- cssSelector
 //- content
 //- created_at
@@ -22,6 +23,8 @@ public class NotificationRequest {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
+
+    private String url;
 
     private Integer userId;
 
@@ -70,5 +73,13 @@ public class NotificationRequest {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
