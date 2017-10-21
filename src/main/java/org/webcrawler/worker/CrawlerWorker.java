@@ -43,8 +43,10 @@ public class CrawlerWorker {
     }
     boolean crawlUrl(NotificationRequest request) throws IOException {
         HttpCrawler crawler = new HttpCrawler();
+        String selector = (!request.getCssSelector().isEmpty())? request.getCssSelector() : "body";
+        String content = (!request.getContent().isEmpty()) ? request.getContent() : "";
         Document doc = crawler.getUrlContent(request.getUrl());
-        List<String>list = crawler.getSelectors(doc, request.getCssSelector());
-        return  crawler.ifContentFound(list, request.getContent());
+        List<String>list = crawler.getSelectors(doc, selector);
+        return  crawler.ifContentFound(list, content);
     }
 }

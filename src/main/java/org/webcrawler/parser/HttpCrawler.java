@@ -18,7 +18,7 @@ public class HttpCrawler
     {
 
         boolean found = false;
-        for (  String text : selectors){
+        for (String text : selectors){
             if(text.contains(content)) {
                 found = true;
                 break;
