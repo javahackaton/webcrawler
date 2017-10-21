@@ -1,0 +1,8 @@
+env.db.host=//127.0.0.1
+env.db.port=//3306
+env.db.name=//dbname
+env.db.username=//dbuser
+env.db.password=//dbpass
+
+env.mail.sender.username=//emailuser
+env.mail.sender.password=//emailpass

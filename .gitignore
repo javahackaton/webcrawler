@@ -117,3 +117,6 @@ gradle-app.setting
 #IDE specific files
 *.iml
 *.ipr
+
+# Ignore file with  environment properties
+/src/main/resources/config/application.properties

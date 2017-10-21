@@ -1,24 +1,27 @@
 package org.webcrawler.mail;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-/**
- * @author Crunchify.com
- *
- */
-
+@Component
 public class Mailer {
 
-    private String host = "smtp.gmail.com";
+    @Value("${mail.sender.host}")
+    private String host;
 
-    private String username = ""; //provide your gmail username
+    @Value("${mail.sender.protocol}")
+    private String protocol;
 
-    private String password =  ""; //provide your gmail password
+    @Value("${mail.sender.username}")
+    private String username;
 
-    private String protocol = "smtp";
+    @Value("${mail.sender.password}")
+    private String password;
 
     private  Session getMailSession;
 

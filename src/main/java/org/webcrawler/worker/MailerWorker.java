@@ -12,13 +12,11 @@ import org.webcrawler.model.User;
 import org.webcrawler.repository.NotificationRequestRepository;
 import org.webcrawler.repository.UserRepository;
 
-
 import javax.mail.MessagingException;
 import java.util.List;
 
 @Component
 public class MailerWorker {
-
 
     @Autowired
     private UserRepository userRepository;
@@ -26,9 +24,10 @@ public class MailerWorker {
     @Autowired
     private NotificationRequestRepository notificationRequestRepository;
 
-    private static final Logger log = LoggerFactory.getLogger(CrawlerWorker.class);
+    @Autowired
+    private Mailer mailer;
 
-    private static Mailer mailer =new Mailer();
+    private static final Logger log = LoggerFactory.getLogger(CrawlerWorker.class);
 
     @Scheduled(fixedRate = 10000)
     public void notifyUsers() throws MessagingException {
