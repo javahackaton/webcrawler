@@ -3,6 +3,14 @@
 <head>
     <title>Web Notifier</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+        .notificationForm input[type="text"] {
+            width: 300px;
+        }
+        .error {
+            color: red
+        }
+    </style>
 </head>
 <body>
 
@@ -22,13 +30,29 @@
         Please enter your notification request:
         <br />
 
-        <form action="#" th:action="@{/notification}" method="post">
-            <p>Email: <input type="text" th:field="*{user.email}" name="user.email" /></p>
-            <p>Url: <input type="text" th:field="*{notificationRequest.url}" name="notificationRequest.url" /></p>
-            <p>Css Selector: <input type="text" th:field="*{notificationRequest.cssSelector}" name="notificationRequest.cssSelector" /></p>
-            <p>Content: <input type="text" th:field="*{notificationRequest.content}" name="notificationRequest.content" /></p>
+        <form action="#" th:action="@{/notification}" method="post" class="notificationForm">
+            <p>
+                Email: <input type="text" th:field="*{user.email}" name="user.email" />
+                <span class="error" th:if="${#fields.hasErrors('user.email')}" th:errors="*{user.email}">&nbsp;</span>
+            </p>
+            <p>
+                Url: <input type="text" th:field="*{notificationRequest.url}" name="notificationRequest.url" />
+                <span class="error" th:if="${#fields.hasErrors('notificationRequest.url')}" th:errors="*{notificationRequest.url}">&nbsp;</span>
+            </p>
+            <p>
+                Css Selector: <input type="text" th:field="*{notificationRequest.cssSelector}" name="notificationRequest.cssSelector" />
+                <span class="error"
+                      th:if="${#fields.hasErrors('notificationRequest.contentOrCssSelectorPresent')}"
+                      th:errors="*{notificationRequest.contentOrCssSelectorPresent}"
+                >
+                    &nbsp;
+                </span>
+            </p>
+            <p>
+                Content: <input type="text" th:field="*{notificationRequest.content}" name="notificationRequest.content" />
+            </p>
 
-            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+            <p><input type="submit" value="Submit" /></p>
         </form>
     </div>
 

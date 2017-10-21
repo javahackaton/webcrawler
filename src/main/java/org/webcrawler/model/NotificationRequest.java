@@ -1,9 +1,13 @@
 package org.webcrawler.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.URL;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.AssertTrue;
 
 @Entity
 public class NotificationRequest {
@@ -24,6 +28,8 @@ public class NotificationRequest {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
+    @NotEmpty
+    @URL
     private String url;
 
     private Integer userId;
@@ -81,5 +87,19 @@ public class NotificationRequest {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    /**
+     * This is a way to check that at least one of the fields is present (content or cssSelector)
+     */
+    @AssertTrue(message="css selector or content (or both) must be provided")
+    public boolean isContentOrCssSelectorPresent() {
+        if(content != null && !content.isEmpty()) {
+            return true;
+        }
+        if(cssSelector != null && !cssSelector.isEmpty()) {
+            return true;
+        }
+        return false;
     }
 }
