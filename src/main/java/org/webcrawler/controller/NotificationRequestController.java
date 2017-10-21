@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,8 @@ import org.webcrawler.model.NotificationRequest;
 import org.webcrawler.model.User;
 import org.webcrawler.repository.NotificationRequestRepository;
 import org.webcrawler.repository.UserRepository;
+
+import javax.validation.Valid;
 
 @Controller
 public class NotificationRequestController {
@@ -38,7 +41,19 @@ public class NotificationRequestController {
     }
 
     @PostMapping("/notification")
-    public String create(Model model, @ModelAttribute NotificationRequest notificationRequest, @ModelAttribute User user) {
+    public String create(
+            Model model,
+            @Valid @ModelAttribute NotificationRequest notificationRequest,
+            BindingResult notificationRequestValidation, // note, this must come right after the object that is being validated!
+            @Valid @ModelAttribute User user,
+            BindingResult userValidation // note, this must come right after the object that is being validated!
+    ) {
+
+        if (userValidation.hasErrors() || notificationRequestValidation.hasErrors()) {
+            model.addAttribute("created", false);
+
+            return "index";
+        }
 
         User existingUser = userRepository.findFirstByEmail(user.getEmail());
 
