@@ -35,7 +35,7 @@ public class MailerWorker {
         log.info("Notification will be sent to users");
         List<NotificationRequest> list = notificationRequestRepository.findByStatus(NotificationState.FOUND.name());
         for (NotificationRequest request : list) {
-            User user = userRepository.findOneById(request.getId());
+            User user = userRepository.findOneById(request.getUserId());
             boolean sent = sendEmail(user, request);
             if(sent) {
                 request.setStatus(NotificationState.NOTIFIED.name());
