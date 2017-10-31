@@ -10,14 +10,20 @@ buildscript {
     }
 }
 
+apply plugin: 'war'
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
+war {
+    baseName = 'webcrawler'
+    version =  '0.1.1'
+}
+
 jar {
-    baseName = 'gs-serving-web-content'
-    version =  '0.1.0'
+    baseName = 'webcrawler'
+    version =  '0.1.1'
     manifest {
         attributes (
             'Main-Class':  'org.webcrawler.Application'
@@ -27,6 +33,8 @@ jar {
 
 repositories {
     mavenCentral()
+    jcenter()
+    maven { url "http://repo.spring.io/libs-snapshot" }
 }
 
 sourceCompatibility = 1.8
@@ -42,5 +50,7 @@ dependencies {
     compile 'javax.validation:validation-api:1.1.0.Final'
     compile 'org.hibernate:hibernate-validator:5.0.1.Final'
     compile 'javax.mail:mail:1.4.7'
+    compile("org.springframework.boot:spring-boot-starter-web")
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
